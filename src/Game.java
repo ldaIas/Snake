@@ -13,13 +13,11 @@ public class Game extends JFrame implements KeyListener {
 	public Game() {
 		board = new GameBoard();
 	}
-	/*public void paintComponent(Graphics g) {
-		board.init(g, 12, 12, 20, 20);
-	}*/
+
 	public void initialize() {
 		board.init(12, 5, 20, 20);
 		setTitle("Snake");
-		setSize(500, 500);
+		setSize(board.getLen()*20, board.getHeight()*20);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		JPanel p = new JPanel();
@@ -32,8 +30,6 @@ public class Game extends JFrame implements KeyListener {
 	public void run() {
 		
 		initialize();
-		int toUpX = 0;
-		int toUpY = 0;
 		while(isRunning) {
 			long time = System.currentTimeMillis();
 			
@@ -51,8 +47,7 @@ public class Game extends JFrame implements KeyListener {
 				}
 				catch(Exception e) {};
 			}
-			toUpX++;
-			toUpY++;
+
 		}
 		setVisible(false);
 	}
@@ -104,22 +99,10 @@ public class Game extends JFrame implements KeyListener {
         }
 	}
 
-
 	@Override
 	public void keyReleased(KeyEvent e) {}
 
 	public static void main(String[] args) {
-		/*JFrame frame = new JFrame();
-		// Create a JPanel (MyDrawing), we'll draw on this
-		frame.setContentPane(new Game());
-		// Program will end when the window is closed
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// Set the size (otherwise only title bar displays)
-		frame.setSize(500, 500);
-		
-		// Frame will not display until you set visible true
-		frame.setVisible(true);*/
-		
 		Game snake = new Game();
 		snake.run();
 		

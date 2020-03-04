@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.util.*;
 
 import javax.swing.*;
@@ -14,10 +13,15 @@ public class GameBoard{
 	Queue<GridCell> body;
 	GridCell head;
 	int score;
-	final int GRID_LENGTH = 25;
-	final int GRID_HEIGHT = 25;
-	//BufferedImage backBuffer;
-	
+	private static final int GRID_LENGTH = 50;
+	private static final int GRID_HEIGHT = 50;
+
+	public int getLen() {
+		return GRID_LENGTH;
+	}
+	public int getHeight() {
+		return GRID_HEIGHT;
+	}
 	public GameBoard() {
 		grid = new GridCell[GRID_LENGTH][GRID_HEIGHT];
 		body = new LinkedList<GridCell>();
@@ -29,7 +33,6 @@ public class GameBoard{
 	
 	public void init(int headx, int heady, int applex, int appley) {
 		score = 0;
-		//backBuffer = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
 		for(int i = 0; i < GRID_LENGTH; i++) {
 			for(int j = 0; j < GRID_HEIGHT; j++) {
 				if((i == headx) && (j == heady)) {
