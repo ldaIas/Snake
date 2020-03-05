@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.io.*;
 
 import javax.swing.*;
 
@@ -13,8 +14,8 @@ public class GameBoard{
 	Queue<GridCell> body;
 	GridCell head;
 	int score;
-	private static final int GRID_LENGTH = 30;
-	private static final int GRID_HEIGHT = 30;
+	private static int GRID_LENGTH = 30;
+	private static int GRID_HEIGHT = 30;
 
 	public int getLen() {
 		return GRID_LENGTH;
@@ -23,29 +24,46 @@ public class GameBoard{
 		return GRID_HEIGHT;
 	}
 	public GameBoard() {
-		grid = new GridCell[GRID_LENGTH][GRID_HEIGHT];
-		body = new LinkedList<GridCell>();
-		for(int i = 0; i < GRID_LENGTH; i++)
-			for(int j = 0; j < GRID_HEIGHT; j++) {
-				grid[i][j] = new GridCell(i*20, j*20);
-			}
+		score = 0;
 	}
 	
-	public void init(int headx, int heady, int applex, int appley) {
-		score = 0;
-		for(int i = 0; i < GRID_LENGTH; i++) {
-			for(int j = 0; j < GRID_HEIGHT; j++) {
-				if((i == headx) && (j == heady)) {
-					grid[i][j].setHead();
-					body.add(grid[i][j]);
+	public int init(int headx, int heady, int applex, int appley) {
+		
+		File f = new File("settings.txt");
+		try {
+			Scanner scnr = new Scanner(f);
+			String line = scnr.nextLine();
+			System.out.println("Lin1: " + line);	
+			line = scnr.nextLine();
+			GRID_HEIGHT = Integer.parseInt(line);
+			line = scnr.nextLine();
+			
+			grid = new GridCell[GRID_LENGTH][GRID_HEIGHT];
+			body = new LinkedList<GridCell>();
+			for(int i = 0; i < GRID_LENGTH; i++)
+				for(int j = 0; j < GRID_HEIGHT; j++) {
+					grid[i][j] = new GridCell(i*20, j*20);
 				}
-				if((i == applex) && (j == appley)) {
-					grid[i][j].setApple();
+			
+			for(int i = 0; i < GRID_LENGTH; i++) {
+				for(int j = 0; j < GRID_HEIGHT; j++) {
+					if((i == headx) && (j == heady)) {
+						grid[i][j].setHead();
+						body.add(grid[i][j]);
+					}
+					if((i == applex) && (j == appley)) {
+						grid[i][j].setApple();
+					}
 				}
 			}
-		}
-		currDir = HeadDir.NONE;
-		
+			currDir = HeadDir.NONE;
+			scnr.close();
+			return Integer.parseInt(line);
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}	
+		return 10;
 	}
 	
 	public boolean update() {
@@ -77,7 +95,7 @@ public class GameBoard{
 	}
 	
 	public void draw(Graphics g) {
-
+		
 		for(int i = 0; i < GRID_LENGTH; i++) {
 			for(int j = 0; j < GRID_HEIGHT; j++) {
 				grid[i][j].draw(g);

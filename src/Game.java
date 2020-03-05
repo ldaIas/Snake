@@ -9,13 +9,13 @@ public class Game extends JFrame implements KeyListener {
 	private boolean isRunning = true;
 	JLabel label;
 
-	private static final int FPS = 10;
+	private static int FPS;
 	public Game() {
 		board = new GameBoard();
 	}
 
 	public void initialize() {
-		board.init(12, 5, 20, 20);
+		FPS = board.init(12, 5, 20, 20);
 		setTitle("Snake");
 		setSize(board.getLen()*20, board.getHeight()*20);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
