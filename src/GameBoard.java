@@ -178,6 +178,7 @@ public class GameBoard{
 			r = (int)(Math.random()*(maxH-minH))+minH;
 		}
 		grid[c][r].setApple();
+		System.out.println("apple location: " + c + ", " + r);
 	}
 	public boolean isBody(int c, int r) {
 		if(grid[c][r].isSnake()) return true;

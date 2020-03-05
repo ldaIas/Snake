@@ -11,6 +11,7 @@ public class GridCell {
 	private int posY;
 	Type cellType;
 	Color cellColor;
+	Color outlineColor = Color.black;
 	
 	public GridCell(int i, int j) {
 		cellType = Type.NONE;
@@ -57,30 +58,40 @@ public class GridCell {
 		default:
 			g.setColor(Color.black);
 			cellColor = Color.black;
+			outlineColor = Color.black;
 			//System.out.println("DEFAULT");
 		case NONE:
 			g.setColor(Color.black);
 			cellColor = Color.black;
+			outlineColor = Color.black;
 			//System.out.println("NONE");
 			break;
 		case HEAD:
 			g.setColor(Color.white);
 			cellColor = Color.white;
+			outlineColor = Color.green;
 			//System.out.println("HEAD");
 			break;
 		case BODY:
 			g.setColor(Color.white);
 			cellColor = Color.white;
+			outlineColor = Color.green;
 			//System.out.println("BODY");
 			break;
 		case APPLE:
 			g.setColor(Color.red);
 			cellColor = Color.red;
+			outlineColor = Color.red;
 			//System.out.println("APPLE");
 			break;
 		}
 		//getColor();
+		g.setColor(outlineColor);
 		g.fillRect(posX, posY, CELL_LENGTH, CELL_HEIGHT);
+		g.setColor(cellColor);
+		g.fillRect(posX, posY, CELL_LENGTH - 10, CELL_HEIGHT - 10);
+		
+		
 	}
 	
 }
