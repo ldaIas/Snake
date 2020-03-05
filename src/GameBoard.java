@@ -32,8 +32,7 @@ public class GameBoard{
 		File f = new File("settings.txt");
 		try {
 			Scanner scnr = new Scanner(f);
-			String line = scnr.nextLine();
-			System.out.println("Lin1: " + line);	
+			String line = scnr.nextLine();	
 			line = scnr.nextLine();
 			GRID_HEIGHT = Integer.parseInt(line);
 			line = scnr.nextLine();
