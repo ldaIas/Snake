@@ -30,46 +30,64 @@ public class GameBoard{
 	
 	public int init(int headx, int heady, int applex, int appley) {
 		
-		File f = new File("settings.txt");
-		try {
-			Scanner scnr = new Scanner(f);
-			String line = scnr.nextLine();	
-			GRID_LENGTH = Integer.parseInt(line);
-			line = scnr.nextLine();
-			GRID_HEIGHT = Integer.parseInt(line);
-			line = scnr.nextLine();
+		int toReturn = createSettingsFile(); 
 			
-			grid = new GridCell[GRID_LENGTH][GRID_HEIGHT];
-			body = new LinkedList<GridCell>();
-			for(int i = 0; i < GRID_LENGTH; i++)
-				for(int j = 0; j < GRID_HEIGHT; j++) {
-					grid[i][j] = new GridCell(i*20, j*20);
+		grid = new GridCell[GRID_LENGTH][GRID_HEIGHT];
+		body = new LinkedList<GridCell>();
+		for(int i = 0; i < GRID_LENGTH; i++)
+			for(int j = 0; j < GRID_HEIGHT; j++) {
+				grid[i][j] = new GridCell(i*20, j*20);
+			}
+			
+		for(int i = 0; i < GRID_LENGTH; i++) {
+			for(int j = 0; j < GRID_HEIGHT; j++) {
+				if((i == headx) && (j == heady)) {
+					grid[i][j].setHead();
+					body.add(grid[i][j]);
 				}
-			
-			for(int i = 0; i < GRID_LENGTH; i++) {
-				for(int j = 0; j < GRID_HEIGHT; j++) {
-					if((i == headx) && (j == heady)) {
-						grid[i][j].setHead();
-						body.add(grid[i][j]);
-					}
-					if((i == applex) && (j == appley)) {
-						grid[i][j].setApple();
-					}
+				if((i == applex) && (j == appley)) {
+					grid[i][j].setApple();
 				}
 			}
-			currDir = HeadDir.NONE;
-			scnr.close();
-			
-			createScoreFile();
-			
-			return Integer.parseInt(line);
-			
-		} catch (FileNotFoundException e) {
+		}
+		currDir = HeadDir.NONE;
+		
+		createScoreFile();
+		
+		return toReturn;
+	}
+	
+	public int createSettingsFile() {
+		File f = new File("settings.txt");
+		try {
+			if(f.createNewFile()) {
+				FileWriter write = new FileWriter(f);
+		    	write.append("20\n");
+		    	write.append("20\n");
+		    	write.append("10");
+		    	write.close();
+		    	return setParams(f);
+			}
+			else {
+				return setParams(f);
+			}
+		} catch (NumberFormatException | IOException e) {
 			e.printStackTrace();
-		}	
+		}
 		return 10;
 	}
 	
+	public int setParams(File f) throws FileNotFoundException {
+		Scanner scnr = new Scanner(f);
+		String line = scnr.nextLine();	
+		GRID_LENGTH = Integer.parseInt(line);
+		line = scnr.nextLine();
+		GRID_HEIGHT = Integer.parseInt(line);
+		line = scnr.nextLine();
+		scnr.close();
+		return Integer.parseInt(line);
+		
+	}
 	public void createScoreFile() {
 		try {
 			File score = new File("HighScore.txt");
