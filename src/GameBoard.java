@@ -33,8 +33,10 @@ public class GameBoard{
 		try {
 			Scanner scnr = new Scanner(f);
 			String line = scnr.nextLine();	
+			GRID_LENGTH = Integer.parseInt(line);
 			line = scnr.nextLine();
 			GRID_HEIGHT = Integer.parseInt(line);
+			System.out.println("Grid Height: " + GRID_HEIGHT + " GRID LENGTH: " + GRID_LENGTH);
 			line = scnr.nextLine();
 			
 			grid = new GridCell[GRID_LENGTH][GRID_HEIGHT];
