@@ -30,7 +30,7 @@ public class GameBoard{
 	
 	public int init(int headx, int heady, int applex, int appley) {
 		
-		int toReturn = createSettingsFile(); 
+		int toReturn = readSettingsFile(); 
 			
 		grid = new GridCell[GRID_LENGTH][GRID_HEIGHT];
 		body = new LinkedList<GridCell>();
@@ -57,7 +57,7 @@ public class GameBoard{
 		return toReturn;
 	}
 	
-	public int createSettingsFile() {
+	public int readSettingsFile() {
 		File f = new File("settings.txt");
 		try {
 			if(f.createNewFile()) {
