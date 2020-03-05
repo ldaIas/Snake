@@ -2,6 +2,10 @@ import java.awt.*;
 import java.util.*;
 import java.io.*;
 
+
+//To fix the visual bug, move HeadDir to grid cell. Each body cell
+//will keep track of the direction it is moving in. Add new cell to
+//end of set based on the direction on the last cell of the set.
 public class GameBoard{
 	public static enum HeadDir{
 		UP, DOWN, LEFT, RIGHT, NONE
