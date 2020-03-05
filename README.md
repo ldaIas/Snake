@@ -1,12 +1,14 @@
 Author: nuttyguy360
 
 ===TO PLAY===
+
 Make sure you have java installed.
 Download Snake.jar (if the icon isn't a cup of coffee, you don't have java).
 Run Snake.jar.
 Press any arrow key to start moving.
 
 ===CONFIGURATIONS===
+
 Download settings.txt and put it in the same directory as Snake.jar.
 It is configured as such:
 50       <-----  Length of window. To get length in pixels, multiply by 20.
