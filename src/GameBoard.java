@@ -1,9 +1,6 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 import java.io.*;
-
-import javax.swing.*;
 
 public class GameBoard{
 	public static enum HeadDir{
@@ -14,8 +11,8 @@ public class GameBoard{
 	Queue<GridCell> body;
 	GridCell head;
 	int score;
-	private static int GRID_LENGTH = 30;
-	private static int GRID_HEIGHT = 30;
+	private static int GRID_LENGTH;
+	private static int GRID_HEIGHT;
 
 	public int getLen() {
 		return GRID_LENGTH;
@@ -36,7 +33,6 @@ public class GameBoard{
 			GRID_LENGTH = Integer.parseInt(line);
 			line = scnr.nextLine();
 			GRID_HEIGHT = Integer.parseInt(line);
-			System.out.println("Grid Height: " + GRID_HEIGHT + " GRID LENGTH: " + GRID_LENGTH);
 			line = scnr.nextLine();
 			
 			grid = new GridCell[GRID_LENGTH][GRID_HEIGHT];
@@ -59,12 +55,31 @@ public class GameBoard{
 			}
 			currDir = HeadDir.NONE;
 			scnr.close();
+			
+			createScoreFile();
+			
 			return Integer.parseInt(line);
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}	
 		return 10;
+	}
+	
+	public void createScoreFile() {
+		try {
+			File score = new File("HighScore.txt");
+		    if (score.createNewFile()) {
+		    	FileWriter write = new FileWriter(score);
+		    	write.write('0');
+		    	write.close();
+		    }
+		    
+		} 
+		catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		}
 	}
 	
 	public boolean update() {
@@ -92,7 +107,31 @@ public class GameBoard{
 			}
 		}
 		
+		if(!validMove) {
+			updateScore();
+		}
+		
 		return validMove;
+	}
+	
+	public void updateScore() {
+		File highScore = new File("HighScore.txt");
+		try {
+			Scanner getScore = new Scanner(highScore);
+			String line = getScore.nextLine();
+			if(Integer.parseInt(line) < score) {
+				FileWriter newScore = new FileWriter(highScore);
+				newScore.write(Integer.toString(score));
+				newScore.close();
+			}
+			getScore.close();
+			
+			
+		} catch (IOException e) {
+			createScoreFile();
+			updateScore();
+		}
+		
 	}
 	
 	public void draw(Graphics g) {
@@ -153,7 +192,6 @@ public class GameBoard{
 				if(grid[i][j].isHead()) {
 					r = j;
 					c = i;
-					//System.out.println("Head: " + c + ", " + r);
 					foundHead = true;
 				}
 			}
