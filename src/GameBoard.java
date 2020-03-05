@@ -13,8 +13,8 @@ public class GameBoard{
 	Queue<GridCell> body;
 	GridCell head;
 	int score;
-	private static final int GRID_LENGTH = 50;
-	private static final int GRID_HEIGHT = 50;
+	private static final int GRID_LENGTH = 30;
+	private static final int GRID_HEIGHT = 30;
 
 	public int getLen() {
 		return GRID_LENGTH;
