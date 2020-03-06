@@ -181,8 +181,25 @@ public class GameBoard{
 	}
 	
 	public void grow(int c, int r) {
-		grid[c][r].setBody();
-		body.add(grid[c][r]);
+		//grid[c][r].setBody();
+		//body.add(grid[c][r]);
+		if(body.element().getBodyDirection() == BodyDir.UP) {
+			body.element().setBody();
+			body.add(grid[c][r-1]);
+		}
+		if(body.element().getBodyDirection() == BodyDir.DOWN) {
+			body.element().setBody();
+			body.add(grid[c][r+1]);
+		}
+		if(body.element().getBodyDirection() == BodyDir.LEFT) {
+			body.element().setBody();
+			body.add(grid[c+1][r]);
+		}
+		if(body.element().getBodyDirection() == BodyDir.RIGHT) {
+			body.element().setBody();
+			body.add(grid[c-1][r]);
+		}
+		
 		score++;
 		newApple();
 	}
@@ -228,6 +245,7 @@ public class GameBoard{
 			}
 			grid[c][r+1].setHead();
 			body.add(grid[c][r+1]);
+			grid[c][r+1].setBodyDirection(BodyDir.DOWN);
 			grid[c][r].removeHead();
 			//System.out.println("Move down. New head: " + c + ", " + (r+1));
 			return true;
@@ -261,6 +279,7 @@ public class GameBoard{
 			}
 			grid[c][r-1].setHead();
 			body.add(grid[c][r-1]);
+			grid[c][r+1].setBodyDirection(BodyDir.UP);
 			grid[c][r].removeHead();
 			return true;
 		}
@@ -293,6 +312,7 @@ public class GameBoard{
 			}
 			grid[c+1][r].setHead();
 			body.add(grid[c+1][r]);
+			grid[c][r+1].setBodyDirection(BodyDir.RIGHT);
 			grid[c][r].removeHead();
 			return true;
 		}
@@ -325,6 +345,7 @@ public class GameBoard{
 			}
 			grid[c-1][r].setHead();
 			body.add(grid[c-1][r]);
+			grid[c][r+1].setBodyDirection(BodyDir.LEFT);
 			grid[c][r].removeHead();
 			return true;
 		}
@@ -333,6 +354,7 @@ public class GameBoard{
 		}
 	}
 
+	
 	public int getScore() {
 		return score;
 	}

@@ -9,14 +9,16 @@ public class GridCell {
 	private static final int CELL_HEIGHT = 20;
 	private int posX;
 	private int posY;
-	Type cellType;
-	Color cellColor;
+	private Type cellType;
+	private Color cellColor;
+	private BodyDir direction;
 	
 	public GridCell(int i, int j) {
 		cellType = Type.NONE;
 		cellColor = Color.black;
 		posX = i;
 		posY = j;
+		direction = BodyDir.NONE;
 	}
 	
 	public void setHead() {
@@ -37,6 +39,12 @@ public class GridCell {
 	}
 	public void setBody() {
 		cellType = Type.BODY;
+	}
+	public void setBodyDirection(BodyDir d) {
+		direction = d;
+	}
+	public BodyDir getBodyDirection() {
+		return direction;
 	}
 	public boolean isBody() {
 		return (cellType == Type.BODY);
