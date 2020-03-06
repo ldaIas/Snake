@@ -28,7 +28,7 @@ public class GameBoard{
 		score = 0;
 	}
 	
-	public int init(int headx, int heady, int applex, int appley) {
+	public int init(int headx, int heady) {
 		
 		int toReturn = readSettingsFile(); 
 			
@@ -45,11 +45,9 @@ public class GameBoard{
 					grid[i][j].setHead();
 					body.add(grid[i][j]);
 				}
-				if((i == applex) && (j == appley)) {
-					grid[i][j].setApple();
-				}
 			}
 		}
+		newApple();
 		currDir = HeadDir.NONE;
 		
 		createScoreFile();

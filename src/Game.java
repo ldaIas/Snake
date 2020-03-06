@@ -15,7 +15,7 @@ public class Game extends JFrame implements KeyListener {
 	}
 
 	public void initialize() {
-		FPS = board.init(12, 5, 20, 20);
+		FPS = board.init(12, 5);
 		setTitle("Snake");
 		setSize(board.getLen()*20, board.getHeight()*20);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
